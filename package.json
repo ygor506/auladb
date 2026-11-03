@@ -1,0 +1,13 @@
+{
+  "name": "formulario-contato",
+  "version": "1.0.0",
+  "description": "Atividade: formulário de contato com HTML, CSS, JavaScript, Node.js e MySQL",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node servidor.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "mysql2": "^3.11.0"
+  }
+}

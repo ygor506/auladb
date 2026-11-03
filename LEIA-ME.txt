@@ -1,0 +1,96 @@
+FORMULÁRIO DE CONTATO - O QUE É CADA ARQUIVO
+=============================================
+
+Estrutura da pasta:
+
+  formulario-contato/
+  |-- package.json
+  |-- servidor.js
+  |-- conexao.js
+  |-- rotas/
+  |   `-- contatos.js
+  `-- publico/
+      |-- index.html
+      |-- estilo.css
+      `-- script.js
+
+
+PASTA PUBLICO (o que o visitante vê no navegador)
+-------------------------------------------------
+
+publico/index.html
+  A estrutura da página: o formulário com 10 campos, a tabela de contatos
+  cadastrados, o campo de busca e a janela de "Cadastrado com sucesso!".
+  Todos os ids, classes e names estão em português.
+
+publico/estilo.css
+  A aparência: tema escuro, cores, espaçamentos, tabela, botões e as
+  animações das mensagens (tremor no erro, aviso no topo, janela de sucesso
+  e confete). Também deixa a página adaptada ao celular.
+
+publico/script.js
+  A lógica da página. Faz:
+  - validação dos campos antes de enviar;
+  - máscara do telefone e contador de caracteres da mensagem;
+  - envio do formulário e mensagens de erro e de sucesso;
+  - busca enquanto digita (ignora acentos, aceita várias palavras e
+    destaca o que foi encontrado);
+  - ordenação da tabela clicando no título da coluna;
+  - exclusão de contato com confirmação no botão.
+
+  No começo do arquivo há a chave USAR_BANCO_DE_DADOS:
+    false -> guarda os contatos no navegador (só para testar a tela);
+    true  -> conversa com o servidor e o banco MySQL.
+  Todo o contato com o servidor está em um único lugar: o objeto
+  "repositorio".
+
+
+PASTA RAIZ E SERVIDOR (parte do Node.js)
+----------------------------------------
+
+package.json
+  Lista as bibliotecas que o projeto usa (express e mysql2) e o comando
+  "npm start". O comando "npm install" lê este arquivo e baixa tudo.
+
+servidor.js
+  Liga o servidor na porta 3000. Entrega a página da pasta publico/ e
+  encaminha os pedidos de /api/contatos para o arquivo rotas/contatos.js.
+
+conexao.js
+  Guarda os dados de acesso ao MySQL (servidor, banco, usuário e senha) e
+  cria a conexão usada pelas rotas.
+  >>> VOCÊ PREENCHE: nome do banco, usuário e senha.
+
+rotas/contatos.js
+  As quatro rotas da API: listar, buscar, cadastrar e excluir. Já recebe
+  os dados do formulário, valida e devolve a resposta para a página.
+  >>> VOCÊ ESCREVE: o comando SQL de cada rota, nos lugares marcados com
+  ">>> ALUNO". As colunas e os parâmetros que devem ser usados estão
+  explicados nos comentários de cada rota.
+
+
+O QUE VOCÊ PRECISA FAZER
+------------------------
+
+  1. Instalar o Node.js e o MySQL no computador.
+  2. Criar o banco de dados e a tabela de contatos. As colunas devem ter
+     os mesmos nomes dos campos: id, nome, email, telefone, cidade, estado,
+     assunto, data_retorno, preferencia, mensagem e cadastrado_em.
+  3. Preencher os dados do banco em conexao.js.
+  4. Escrever os 4 comandos SQL em rotas/contatos.js.
+  5. Trocar USAR_BANCO_DE_DADOS para true em publico/script.js.
+
+
+COMO RODAR
+----------
+
+  1. Abra o terminal dentro da pasta formulario-contato.
+  2. Na primeira vez, rode:   npm install
+  3. Para ligar o servidor:   npm start
+  4. Abra no navegador:       http://localhost:3000
+
+  Não abra o index.html com duplo clique quando estiver usando o banco:
+  a página precisa ser aberta pelo endereço do servidor.
+
+  Enquanto um comando SQL estiver vazio, a página mostra o aviso
+  "Escreva o comando SQL em rotas/contatos.js (...)" dizendo qual falta.

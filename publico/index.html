@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Contato</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <div class="pagina">
+
+    <main class="cartao cartao-formulario">
+      <header class="cabecalho">
+        <h1>Fale conosco</h1>
+        <p>Preencha o formulário e responderemos em breve.</p>
+      </header>
+
+      <form id="formulario-contato" novalidate>
+        <div class="colunas-formulario">
+          <div class="campo">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Maria da Silva" autocomplete="name">
+            <small class="erro-campo"></small>
+          </div>
+
+          <div class="campo">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="maria@exemplo.com" autocomplete="email">
+            <small class="erro-campo"></small>
+          </div>
+
+          <div class="campo">
+            <label for="telefone">Telefone / WhatsApp</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" autocomplete="tel">
+            <small class="erro-campo"></small>
+          </div>
+
+          <div class="campo">
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" name="cidade" placeholder="Sua cidade" autocomplete="address-level2">
+            <small class="erro-campo"></small>
+          </div>
+
+          <div class="campo">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado">
+              <option value="">Selecione</option>
+              <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+              <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+              <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+              <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+              <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+              <option>SP</option><option>SE</option><option>TO</option>
+            </select>
+            <small class="erro-campo"></small>
+          </div>
+
+          <div class="campo">
+            <label for="assunto">Assunto</label>
+            <select id="assunto" name="assunto">
+              <option value="">Selecione</option>
+              <option>Dúvida</option>
+              <option>Orçamento</option>
+              <option>Suporte</option>
+              <option>Sugestão</option>
+              <option>Elogio</option>
+            </select>
+            <small class="erro-campo"></small>
+          </div>
+
+          <div class="campo">
+            <label for="data_retorno">Melhor data para retorno</label>
+            <input type="date" id="data_retorno" name="data_retorno">
+            <small class="erro-campo"></small>
+          </div>
+
+          <div class="campo largo">
+            <span class="rotulo">Prefere ser contatado por</span>
+            <div class="opcoes">
+              <label class="opcao"><input type="radio" name="preferencia" value="E-mail" checked><span>E-mail</span></label>
+              <label class="opcao"><input type="radio" name="preferencia" value="Telefone"><span>Telefone</span></label>
+              <label class="opcao"><input type="radio" name="preferencia" value="WhatsApp"><span>WhatsApp</span></label>
+            </div>
+          </div>
+
+          <div class="campo largo">
+            <label for="mensagem">Mensagem <em id="contador">0/300</em></label>
+            <textarea id="mensagem" name="mensagem" rows="4" maxlength="300" placeholder="Escreva sua mensagem"></textarea>
+            <small class="erro-campo"></small>
+          </div>
+
+          <div class="campo largo">
+            <label class="aceite">
+              <input type="checkbox" id="aceite" name="aceite">
+              <span>Concordo em ser contatado sobre esta solicitação.</span>
+            </label>
+            <small class="erro-campo"></small>
+          </div>
+        </div>
+
+        <button type="submit" class="botao-enviar"><span>Enviar mensagem</span></button>
+      </form>
+    </main>
+
+    <section class="cartao cartao-lista" id="secao-contatos">
+      <header class="cabecalho-lista">
+        <div>
+          <h2>Contatos cadastrados</h2>
+          <p id="resumo-resultados">Carregando...</p>
+        </div>
+
+        <input type="search" id="campo-busca" name="busca" class="campo-busca"
+               placeholder="Buscar por nome, e-mail, cidade, assunto..." autocomplete="off"
+               aria-label="Buscar contatos">
+      </header>
+
+      <div class="tabela-rolagem">
+        <table id="tabela-contatos">
+          <thead>
+            <tr>
+              <th data-coluna="nome"><button type="button" class="ordenar">Nome</button></th>
+              <th data-coluna="email"><button type="button" class="ordenar">E-mail</button></th>
+              <th data-coluna="telefone" class="col-telefone"><button type="button" class="ordenar">Telefone</button></th>
+              <th data-coluna="cidade"><button type="button" class="ordenar">Cidade</button></th>
+              <th data-coluna="assunto"><button type="button" class="ordenar">Assunto</button></th>
+              <th data-coluna="data_retorno" class="col-retorno"><button type="button" class="ordenar">Retorno</button></th>
+              <th data-coluna="preferencia" class="col-preferencia"><button type="button" class="ordenar">Contato</button></th>
+              <th><span class="sem-ordenacao">Ações</span></th>
+            </tr>
+          </thead>
+          <tbody id="corpo-tabela"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="aviso" class="aviso" role="status" aria-live="polite"></div>
+
+  <div id="janela-sucesso" class="janela" aria-hidden="true">
+    <div class="janela-caixa">
+      <svg class="marca-sucesso" viewBox="0 0 52 52" aria-hidden="true">
+        <circle class="marca-circulo" cx="26" cy="26" r="24" fill="none"/>
+        <path class="marca-traco" fill="none" d="M14 27l8 8 16-17"/>
+      </svg>
+      <h2>Cadastrado com sucesso!</h2>
+      <p id="janela-texto"></p>
+      <button type="button" id="janela-fechar" class="botao-enviar"><span>Ok, entendi</span></button>
+    </div>
+  </div>
+
+  <div id="confete" class="confete" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
